@@ -26,6 +26,8 @@ Node.prototype.insert = function(newNode) {
 function BinarySearchTree(insert) {
 	if (insert instanceof Node) {
 		this.root = insert;
+	} else if (insert instanceof Array) {
+		
 	} else {
 	  this.root = new Node(insert);
 	}
@@ -71,7 +73,7 @@ BinarySearchTree.prototype.balancedTree = function(inserts) {
 	};
 };
 
-BinarySearchTree.prototype.balancedBranch = function(inserts) {
+var balancedBranch = function(inserts) {
 	if (inserts.length > 1) {
 		var middleIndex = Math.floor( (inserts.length - 1 ) / 2);
 		var middleInsert = inserts[middleIndex];
