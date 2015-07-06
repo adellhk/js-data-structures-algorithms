@@ -27,7 +27,7 @@ function BinarySearchTree(insert) {
 	if (insert instanceof Node) {
 		this.root = insert;
 	} else if (insert instanceof Array) {
-		
+		this.balancedTree(insert);
 	} else {
 	  this.root = new Node(insert);
 	}
@@ -61,27 +61,27 @@ assign left to return of left-split(1,2) #=> 1
 BinarySearchTree.prototype.balancedTree = function(inserts) {
 	var middleIndex = Math.floor( (inserts.length - 1 ) / 2);
 	var middleInsert = inserts[middleIndex];
-	this.root.insert(new Node(middleInsert));
+	this.root = middleInsert;
 	if (inserts.length > 1) {
 		var leftInserts = inserts.slice(0, middleIndex);
 		var rightInserts = inserts.slice(middleIndex + 1, inserts.length);
 
-		this.root.left = new Node( balancedBranch(leftInserts) );
-		this.root.right = new Node( balancedBranch(rightInserts) );
+		this.left = new Node( this.balancedBranch(leftInserts) );
+		this.right = new Node( this.balancedBranch(rightInserts) );
 		
 		return middleInsert;
 	};
 };
 
-var balancedBranch = function(inserts) {
+BinarySearchTree.prototype.balancedBranch = function(inserts) {
 	if (inserts.length > 1) {
 		var middleIndex = Math.floor( (inserts.length - 1 ) / 2);
 		var middleInsert = inserts[middleIndex];
 		var leftInserts = inserts.slice(0, middleIndex);
 		var rightInserts = inserts.slice(middleIndex + 1, inserts.length);
 
-		this.left.insert(new Node( balancedBranch(leftInserts) ));
-		this.right.insert(new Node( balancedBranch(rightInserts) ));
+		this.left.insert(new Node( this.balancedBranch(leftInserts) ));
+		this.right.insert(new Node( this.balancedBranch(rightInserts) ));
 		
 		return middleInsert;
 	} else {
@@ -96,4 +96,4 @@ bst = new BinarySearchTree(1);
 console.log(bst)
 bst.insert(2)
 // bst.simpleTree([4,5,6])
-bst.balancedTree([4,5,6])
+balancedBst = new BinarySearchTree([4,5,6])
