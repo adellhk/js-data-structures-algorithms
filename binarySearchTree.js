@@ -6,7 +6,7 @@ function Node(value) {
 };
 
 Node.prototype.insert = function(newNode) {
-	if(newNode.value < this.value) {
+	if (newNode.value < this.value) {
 		if (this.left === null) {
 			this.left = newNode;
 		} else {
@@ -16,7 +16,7 @@ Node.prototype.insert = function(newNode) {
 		if (this.right === null) {
 			this.right = newNode;
 		} else {
-			this.right.insert(newNode)
+			this.right.insert(newNode);
 		}
 	} else {
 		throw "Nodes cannot have duplicate values."
@@ -27,7 +27,7 @@ function BinarySearchTree(insert) {
 	if (insert instanceof Node) {
 		this.root = insert;
 	} else {
-		this.root = new Node(insert);
+	  this.root = new Node(insert);
 	}
 	return this;
 };
@@ -40,11 +40,19 @@ BinarySearchTree.prototype.insert = function(insert) {
 	}
 };
 
-BinarySearchTree.prototype.tree = function (inserts) {
+BinarySearchTree.prototype.simpleTree = function(inserts) {
 	for (insert in inserts) {
 		this.root.insert(new Node(inserts[insert]));
 	}
-}
+};
+
+BinarySearchTree.prototype.balancedTree = function(inserts) {
+	var middleIndex = Math.floor( (inserts.length - 1 ) / 2);
+	var middleInsert = inserts[middleIndex];
+	for (insert in inserts) {
+		this.root.insert(new Node)
+	}
+};
 // var myNode = new Node(3);
 // console.log(myNode.value === 3);
 // console.log(myNode.left === null);
@@ -52,4 +60,4 @@ BinarySearchTree.prototype.tree = function (inserts) {
 bst = new BinarySearchTree(1);
 console.log(bst)
 bst.insert(2)
-bst.tree([4,5,6])
+bst.simpleTree([4,5,6])
