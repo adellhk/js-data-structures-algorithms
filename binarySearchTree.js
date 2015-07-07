@@ -59,35 +59,37 @@ assign right to return of right-split(4,5) #=> 4
 assign left to return of left-split(1,2) #=> 1
 */
 BinarySearchTree.prototype.balancedTree = function(inserts) {
-	var middleIndex = Math.floor( (inserts.length - 1 ) / 2);
+	var middleIndex = Math.floor( (inserts.length - 1) / 2);
 	var middleInsert = inserts[middleIndex];
-	this.root = middleInsert;
-	if (inserts.length > 1) {
-		var leftInserts = inserts.slice(0, middleIndex);
-		var rightInserts = inserts.slice(middleIndex + 1, inserts.length);
-
-		this.left = new Node( this.balancedBranch(leftInserts) );
-		this.right = new Node( this.balancedBranch(rightInserts) );
-		
-		return middleInsert;
+	if (this.root === undefined) {
+		this.root = new Node(middleInsert);
 	};
-};
-
-BinarySearchTree.prototype.balancedBranch = function(inserts) {
 	if (inserts.length > 1) {
-		var middleIndex = Math.floor( (inserts.length - 1 ) / 2);
-		var middleInsert = inserts[middleIndex];
 		var leftInserts = inserts.slice(0, middleIndex);
 		var rightInserts = inserts.slice(middleIndex + 1, inserts.length);
 
-		this.left.insert(new Node( this.balancedBranch(leftInserts) ));
-		this.right.insert(new Node( this.balancedBranch(rightInserts) ));
+		this.root.left = new Node( this.balancedTree(leftInserts) );
+		this.root.right = new Node( this.balancedTree(rightInserts) );
 		
-		return middleInsert;
-	} else {
-		return inserts[0];
-	}
+	};
+	return middleInsert;
 };
+
+// BinarySearchTree.prototype.balancedBranch = function(inserts) {
+// 	if (inserts.length > 1) {
+// 		var middleIndex = Math.floor( (inserts.length - 1 ) / 2);
+// 		var middleInsert = inserts[middleIndex];
+// 		var leftInserts = inserts.slice(0, middleIndex);
+// 		var rightInserts = inserts.slice(middleIndex + 1, inserts.length);
+
+// 		this.left.insert(new Node( this.balancedBranch(leftInserts) ));
+// 		this.right.insert(new Node( this.balancedBranch(rightInserts) ));
+		
+// 		return middleInsert;
+// 	} else {
+// 		return inserts[0];
+// 	}
+// };
 // var myNode = new Node(3);
 // console.log(myNode.value === 3);
 // console.log(myNode.left === null);
