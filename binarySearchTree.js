@@ -10,7 +10,7 @@ Node.prototype.insert = function(newNode) {
 		if (this.left === null) {
 			this.left = newNode;
 		} else {
-			this.left = (newNode);
+			this.left.insert(newNode);
 		};
 	} else if (newNode.value > this.value) {
 		if (this.right === null) {
@@ -64,6 +64,7 @@ BinarySearchTree.prototype.balancedTree = function(inserts) {
 	if (this.root === undefined) {
 		this.root = new Node(middleInsert);
 	};
+	
 	if (inserts.length > 1) {
 		if (inserts.length == 2) {
 			var leftInserts = inserts[0];
@@ -72,13 +73,13 @@ BinarySearchTree.prototype.balancedTree = function(inserts) {
 		};
 		var rightInserts = inserts.slice(middleIndex + 1, inserts.length);
 
-		if (leftInserts.length > 0) {
-			this.root.left = new Node(this.balancedTree(leftInserts));
-		};
+		// if (leftInserts.length > 0) {
+			this.root.insert(new Node(this.balancedTree(leftInserts)));
+		// };
 
-		if (rightInserts.length > 0) {
-			this.insert( this.balancedTree(rightInserts) );
-		};
+		// if (rightInserts.length > 0) {
+			this.root.insert(new Node(this.balancedTree(rightInserts)));
+		// };
 	};
 	return middleInsert;
 };
